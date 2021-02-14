@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitchClipArchiveViewer", "TwitchClipArchiveViewer\TwitchClipArchiveViewer.csproj", "{E0A74836-7DBE-4E78-869F-96F52DB00435}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E0A74836-7DBE-4E78-869F-96F52DB00435}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0A74836-7DBE-4E78-869F-96F52DB00435}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0A74836-7DBE-4E78-869F-96F52DB00435}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0A74836-7DBE-4E78-869F-96F52DB00435}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {44858D6C-839D-43C1-92F3-1C5159E27B4D}
+	EndGlobalSection
+EndGlobal

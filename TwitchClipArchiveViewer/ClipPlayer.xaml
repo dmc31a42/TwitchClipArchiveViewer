@@ -1,0 +1,34 @@
+﻿<Window x:Name="clipPlayer"
+        x:Class="TwitchClipArchiveViewer.ClipPlayer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TwitchClipArchiveViewer" xmlns:ffme="clr-namespace:Unosquare.FFME;assembly=ffme.win" 
+        mc:Ignorable="d"
+        Title="ClipPlayer" MinHeight="720" Height="0" MinWidth="1220" Width="0">
+    <Window.Resources>
+        <Storyboard x:Key="ShowControlOpacity" Storyboard.TargetProperty="(UIElement.Opacity)">
+            <DoubleAnimation To="1" Duration="0:0:0.100" FillBehavior="HoldEnd" />
+        </Storyboard>
+        <Storyboard x:Key="HideControlOpacity" Storyboard.TargetProperty="(UIElement.Opacity)">
+            <DoubleAnimation To="0" Duration="0:0:0.300" FillBehavior="HoldEnd" />
+        </Storyboard>
+        <Storyboard x:Key="ShowNotification" Storyboard.TargetProperty="(UIElement.Opacity)">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0.25" To="1.0" />
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:2" From="1.0" To="0.0" BeginTime="0:0:2" />
+        </Storyboard>
+    </Window.Resources>
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo ProgressValue="{Binding PlaybackProgress}" ProgressState="{Binding PlaybackProgressState}" />
+    </Window.TaskbarItemInfo>
+    <Grid Name="Player">
+        <ffme:MediaElement Name="Media" Background="Black" LoadedBehavior="Play" IsDesignPreviewEnabled="True" />
+        <DockPanel x:Name="LayoutPanel" LastChildFill="False">
+            <local:ControllerPanelControl
+                x:Name="ControllerPanel"
+                DockPanel.Dock="Bottom"
+                Visibility="Visible"/>
+        </DockPanel>
+    </Grid>
+</Window>
