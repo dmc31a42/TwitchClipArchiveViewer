@@ -118,38 +118,42 @@ namespace TwitchClipArchiveViewer
 
         private void Worker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            filterdpDateFrom.SelectedDate = firstDate;
-            filterdpDateFrom.DisplayDateStart = firstDate;
-            filterdpDateFrom.DisplayDateEnd = lastDate;
-            filterdpDateTo.SelectedDate = lastDate;
-            filterdpDateTo.DisplayDateStart = firstDate;
-            filterdpDateTo.DisplayDateEnd = lastDate;
-            filtertbViewCountFrom.Text = viewMinimum.ToString();
-            prevCountFrom = viewMinimum.ToString();
-            filtertbViewCountTo.Text = viewMaximum.ToString();
-            prevCountTo = viewMaximum.ToString();
-            mscbGames.ItemsSource = this.twitchGames;
-            if(this.worker != null)
+            if(e.Result is TwitchClip[] twitchClipsExist)
             {
-                this.worker.CancelAsync();
+                filterdpDateFrom.SelectedDate = firstDate;
+                filterdpDateFrom.DisplayDateStart = firstDate;
+                filterdpDateFrom.DisplayDateEnd = lastDate;
+                filterdpDateTo.SelectedDate = lastDate;
+                filterdpDateTo.DisplayDateStart = firstDate;
+                filterdpDateTo.DisplayDateEnd = lastDate;
+                filtertbViewCountFrom.Text = viewMinimum.ToString();
+                prevCountFrom = viewMinimum.ToString();
+                filtertbViewCountTo.Text = viewMaximum.ToString();
+                prevCountTo = viewMaximum.ToString();
+                mscbGames.ItemsSource = this.twitchGames;
+                if (this.worker != null)
+                {
+                    this.worker.CancelAsync();
+                }
+                ThumbnailLength = (e.Result as TwitchClip[]).Count();
+                ThumbnailCount = ThumbnailLength - listTwitchClipToThumbnail.Count;
+                statusBarThumbnailPB.Value = ThumbnailCount * 100 / ThumbnailLength;
+                statusBarThumbnailTB.Text = $"클립 미리보기 생성중 ({ThumbnailCount}/{ThumbnailLength}) ";
+                statusBarThumbnailSP.Visibility = Visibility.Visible;
+                this.worker = new BackgroundWorker();
+                this.worker.WorkerReportsProgress = true;
+                this.worker.DoWork += Worker_DoWork;
+                this.worker.ProgressChanged += Worker_ProgressChanged;
+                this.worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+                this.worker.RunWorkerAsync();
+
+                this.twitchClips = twitchClipsExist;
+                filterDP.IsEnabled = true;
+                loadingGrid.Visibility = Visibility.Hidden;
+                pressSearch.Visibility = Visibility.Visible;
+                orderList.IsEnabled = true;
             }
-            ThumbnailLength = (e.Result as TwitchClip[]).Count();
-            ThumbnailCount = ThumbnailLength - listTwitchClipToThumbnail.Count;
-            statusBarThumbnailPB.Value = ThumbnailCount*100/ThumbnailLength;
-            statusBarThumbnailTB.Text = $"클립 미리보기 생성중 ({ThumbnailCount}/{ThumbnailLength}, 생성이 다될 때까지 기다리는 것을 추천합니다.) ";
-            statusBarThumbnailSP.Visibility = Visibility.Visible;
-            this.worker = new BackgroundWorker();
-            this.worker.WorkerReportsProgress = true;
-            this.worker.DoWork += Worker_DoWork;
-            this.worker.ProgressChanged += Worker_ProgressChanged;
-            this.worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-            this.worker.RunWorkerAsync();
             
-            this.twitchClips = e.Result as TwitchClip[];
-            filterDP.IsEnabled = true;
-            loadingGrid.Visibility = Visibility.Hidden;
-            pressSearch.Visibility = Visibility.Visible;
-            orderList.IsEnabled = true;
         }
 
         private void Worker1_DoWork(object sender, DoWorkEventArgs e)
@@ -240,7 +244,7 @@ namespace TwitchClipArchiveViewer
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             statusBarThumbnailPB.Value = e.ProgressPercentage;
-            statusBarThumbnailTB.Text = $"클립 미리보기 생성중 ({ThumbnailCount}/{ThumbnailLength}, 생성이 다될 때까지 기다리는 것을 추천합니다.) ";
+            statusBarThumbnailTB.Text = $"클립 미리보기 생성중 ({ThumbnailCount}/{ThumbnailLength}) ";
         }
 
         //https://www.csharpstudy.com/WinForms/WinForms-backgroundworker.aspx
@@ -252,26 +256,31 @@ namespace TwitchClipArchiveViewer
                 {
                     MaxDegreeOfParallelism = 4
                 };
-                _ = Parallel.ForEach(listTwitchClipToThumbnail, parallelOptions, (twitchClip, action, i) =>
+                //Parallel.ForEach(listTwitchClipToThumbnail, parallelOptions, (twitchClip, action, i) =>
+                foreach (var twitchClip in listTwitchClipToThumbnail)
                 {
                     ProcessStartInfo startInfo = new ProcessStartInfo(@"ffmpeg\ffmpeg.exe");
                     startInfo.Arguments = "-itsoffset -4  -i \"" + twitchClip.download_url + "\" -vcodec mjpeg -vframes 1 -an -f rawvideo -s 320x180 \"" + twitchClip.download_url.Replace(".mp4", ".jpg") + "\"";
                     startInfo.CreateNoWindow = true;
                     startInfo.UseShellExecute = false;
-                    //startInfo.RedirectStandardOutput = true;
-                    //startInfo.RedirectStandardError = true;
+                    startInfo.RedirectStandardOutput = true;
+                    startInfo.RedirectStandardError = true;
                     Process proc = Process.Start(startInfo);
-                    proc.WaitForExit();
-                    //string result = proc.StandardOutput.ReadToEnd();
-                    //string error = proc.StandardError.ReadToEnd();
+                    do
+                    {
+                        Log.StreamWriter.WriteLine(proc.StandardOutput.ReadToEnd());
+                        Log.StreamWriter.WriteLine(proc.StandardError.ReadToEnd());
+                    } while (!proc.HasExited);
                     Interlocked.Increment(ref this.ThumbnailCount);
                     twitchClip.thumbnail_url = twitchClip.download_url.Replace(".mp4", ".jpg");
                     backgroundWorker.ReportProgress(this.ThumbnailCount * 100 / this.ThumbnailLength);
-                    if(e.Cancel)
+                    if (e.Cancel)
                     {
-                        action.Stop();
+                        //action.Break();
+                        break;
                     }
-                });
+                }
+                //});
             }
         }
 
