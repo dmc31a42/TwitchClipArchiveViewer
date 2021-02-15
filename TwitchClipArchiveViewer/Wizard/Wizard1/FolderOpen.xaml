@@ -1,0 +1,53 @@
+﻿<Page x:Class="TwitchClipArchiveViewer.Wizard.Wizard1.FolderOpen"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TwitchClipArchiveViewer.Wizard.Wizard1"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="FolderOpen">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" FontSize="15" Margin="5" TextWrapping="Wrap">
+            클립 폴더 열기
+        </TextBlock>
+        <TextBlock Grid.Row="1" Margin="5" TextWrapping="Wrap">
+            먼저 파일로 저장된 클립이 위치한 폴더를 선택해주어야 합니다.
+        </TextBlock>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" VerticalAlignment="Center" TextWrapping="Wrap">
+                오른쪽 상단의
+            </TextBlock>
+            <Image Grid.Column="1" Source="FolderOpen-FolderOpenButton.png" />
+            <TextBlock Grid.Column="2" VerticalAlignment="Center" TextWrapping="Wrap">
+                버튼을 클릭합니다.
+            </TextBlock>
+        </Grid>
+        <TextBlock Grid.Row="3">
+            아래 사진의 왼쪽 폴더와 같이 클립 파일을 저장해둔 폴더를 폴더 선택창에서 선택하세요
+        </TextBlock>
+        <Grid Grid.Row="4" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Source="FolderOpen-FolderExplorer.png"/>
+            <TextBlock Grid.Column="1" Text="->"  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
+            <Image Grid.Column="2" Source="FolderOpen-OpenDialog.png"/>
+        </Grid>
+    </Grid>
+</Page>

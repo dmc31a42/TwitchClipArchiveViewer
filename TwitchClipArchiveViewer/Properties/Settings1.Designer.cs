@@ -82,5 +82,65 @@ namespace TwitchClipArchiveViewer.Properties {
                 this["Maximized"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SkipTutorial {
+            get {
+                return ((bool)(this["SkipTutorial"]));
+            }
+            set {
+                this["SkipTutorial"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Done1 {
+            get {
+                return ((bool)(this["Done1"]));
+            }
+            set {
+                this["Done1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Done2 {
+            get {
+                return ((bool)(this["Done2"]));
+            }
+            set {
+                this["Done2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Done3 {
+            get {
+                return ((bool)(this["Done3"]));
+            }
+            set {
+                this["Done3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Done4 {
+            get {
+                return ((bool)(this["Done4"]));
+            }
+            set {
+                this["Done4"] = value;
+            }
+        }
     }
 }

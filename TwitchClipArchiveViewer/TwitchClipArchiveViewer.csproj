@@ -20,6 +20,24 @@
     <None Remove="loading.png" />
     <None Remove="play-button-overlay-png.png" />
     <None Remove="senikatwitch_clips_merge.json" />
+    <None Remove="Wizard\Wizard1\FolderOpen-FolderExplorer.png" />
+    <None Remove="Wizard\Wizard1\FolderOpen-FolderOpenButton.png" />
+    <None Remove="Wizard\Wizard1\FolderOpen-OpenDialog.png" />
+    <None Remove="Wizard\Wizard1\Welcome.png" />
+    <None Remove="Wizard\Wizard2\AS-AfterPressSearch.png" />
+    <None Remove="Wizard\Wizard2\AS-SearchButtom.png" />
+    <None Remove="Wizard\Wizard2\BTW-BackgroundProgressbar.png" />
+    <None Remove="Wizard\Wizard2\BTW-CPU.png" />
+    <None Remove="Wizard\Wizard3\CreatorSearch.png" />
+    <None Remove="Wizard\Wizard3\DateSearch.png" />
+    <None Remove="Wizard\Wizard3\GameSearch-1.png" />
+    <None Remove="Wizard\Wizard3\GameSearch-2.png" />
+    <None Remove="Wizard\Wizard3\GameSearch-3.png" />
+    <None Remove="Wizard\Wizard3\TitleSearch.png" />
+    <None Remove="Wizard\Wizard3\ViewCountSearch.png" />
+    <None Remove="Wizard\Wizard4\OrderSelector-1.png" />
+    <None Remove="Wizard\Wizard4\OrderSelector-2.png" />
+    <None Remove="Wizard\Wizard4\OrderSelector-3.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +52,24 @@
     <Resource Include="loading.png" />
     <Resource Include="play-button-overlay-png.png" />
     <Resource Include="senikatwitch_clips_merge.json" />
+    <Resource Include="Wizard\Wizard1\FolderOpen-FolderExplorer.png" />
+    <Resource Include="Wizard\Wizard1\FolderOpen-FolderOpenButton.png" />
+    <Resource Include="Wizard\Wizard1\FolderOpen-OpenDialog.png" />
+    <Resource Include="Wizard\Wizard1\Welcome.png" />
+    <Resource Include="Wizard\Wizard2\AS-AfterPressSearch.png" />
+    <Resource Include="Wizard\Wizard2\AS-SearchButtom.png" />
+    <Resource Include="Wizard\Wizard2\BTW-BackgroundProgressbar.png" />
+    <Resource Include="Wizard\Wizard2\BTW-CPU.png" />
+    <Resource Include="Wizard\Wizard3\CreatorSearch.png" />
+    <Resource Include="Wizard\Wizard3\DateSearch.png" />
+    <Resource Include="Wizard\Wizard3\GameSearch-1.png" />
+    <Resource Include="Wizard\Wizard3\GameSearch-2.png" />
+    <Resource Include="Wizard\Wizard3\GameSearch-3.png" />
+    <Resource Include="Wizard\Wizard3\TitleSearch.png" />
+    <Resource Include="Wizard\Wizard3\ViewCountSearch.png" />
+    <Resource Include="Wizard\Wizard4\OrderSelector-1.png" />
+    <Resource Include="Wizard\Wizard4\OrderSelector-2.png" />
+    <Resource Include="Wizard\Wizard4\OrderSelector-3.png" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,29 @@
+﻿<Page x:Class="TwitchClipArchiveViewer.Wizard.Wizard3.CreatorSearch"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TwitchClipArchiveViewer.Wizard.Wizard3"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="CreatorSearch">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" TextWrapping="Wrap" FontSize="15">
+            제작자로 검색
+        </TextBlock>
+        <TextBlock Grid.Row="1" TextWrapping="Wrap">
+            '제작자' 필터에 검색하고자 하는 문구를 넣고 검색을 누르면 제작자 이름이 일부라도 같은 클립들만 보여줍니다. 비워져있으면 모든 클립을 보여줍니다.
+        </TextBlock>
+        <TextBlock Grid.Row="2" TextWrapping="Wrap">
+            참고: 대소문자는 구분하지 않습니다.
+        </TextBlock>
+        <Image Grid.Row="3" Source="CreatorSearch.png"/>
+    </Grid>
+</Page>

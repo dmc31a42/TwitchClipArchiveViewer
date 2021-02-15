@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace TwitchClipArchiveViewer
 {
+#if False
     public class Log
     {
         private static Stream stream;
@@ -38,4 +39,5 @@ namespace TwitchClipArchiveViewer
         }
 
     }
+#endif
 }

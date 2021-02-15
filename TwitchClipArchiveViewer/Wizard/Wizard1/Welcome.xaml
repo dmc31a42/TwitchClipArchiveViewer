@@ -1,0 +1,25 @@
+﻿<Page x:Class="TwitchClipArchiveViewer.Wizard.Wizard1.Welcome"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TwitchClipArchiveViewer.Wizard.Wizard1"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Welcome">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition />
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" TextWrapping="Wrap" Margin="5">
+                안녕하세요, 이 프로그램은 여러분들이 가지고 있는 기존의 트위치 클립 파일들을 아래와 같이 보기 편하게 보여드리는 프로그램입니다.
+        </TextBlock>
+        <Image Grid.Row="1" Source="Welcome.png" Margin="5"/>
+        <TextBlock Grid.Row="2" TextWrapping="Wrap" Margin="5">
+                이 화면을 보실 수 있게 한 단계씩 알려드리겠습니다.
+        </TextBlock>
+    </Grid>
+</Page>

@@ -1,0 +1,25 @@
+﻿<Page x:Class="TwitchClipArchiveViewer.Wizard.Wizard3.ViewCountSearch"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TwitchClipArchiveViewer.Wizard.Wizard3"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ViewCountSearch">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" TextWrapping="Wrap" FontSize="15">
+            조회수로 검색
+        </TextBlock>
+        <TextBlock Grid.Row="1" TextWrapping="Wrap" >
+            조회수 필터는 조회수가 이 범위 안인 클립을 찾아줍니다. 조회수는 숫자만 입력할 수 있고 문자를 입력하려하면 변경사항이 취소됩니다. 조회수는 왼쪽이 작은수, 오른쪽이 큰수로 입력하여야하나 서로 바뀌어도 알아서 바꾸어줍니다.
+        </TextBlock>
+        <Image Grid.Row="2" Source="ViewCountSearch.png"/>
+    </Grid>
+</Page>

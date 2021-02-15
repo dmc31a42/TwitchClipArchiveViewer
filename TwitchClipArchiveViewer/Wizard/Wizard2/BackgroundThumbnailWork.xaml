@@ -1,0 +1,44 @@
+﻿<Page x:Class="TwitchClipArchiveViewer.Wizard.Wizard2.BackgroundThumbnailWork"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TwitchClipArchiveViewer.Wizard.Wizard2"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="BackgroundThumbnailWork">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" TextWrapping="Wrap" FontSize="15" Margin="0,0,5,5">
+            검색하기
+        </TextBlock>
+        <TextBlock Grid.Row="1" TextWrapping="Wrap">
+            축하합니다. 성공적으로 클립 폴더를 열었습니다. 
+        </TextBlock>
+        <TextBlock Grid.Row="2" TextWrapping="Wrap">
+            클립들을 탐색할 때 유용한 미리보기 이미지를 만들기 위해 백그라운드에서 열심히 작업중이에요.
+        </TextBlock>
+        <Image Grid.Row="3" Source="BTW-BackgroundProgressbar.png" MaxWidth="300" Margin="5"/>
+        <TextBlock Grid.Row="4" TextWrapping="Wrap">
+            언제든지 프로그램을 종료할 수 있고 프로그램을 다시 실행시키면 이전에 작업했던 부분 부터 다시 재개됩니다.
+        </TextBlock>
+        <Image Grid.Row="5" Source="BTW-CPU.png" MaxWidth="200" Margin="5"/>
+        <TextBlock Grid.Row="6" TextWrapping="Wrap">
+            미리보기 생성 중에는 CPU 자원을 매우 많이 소모하므로 프로그램이 느려질 수 있습니다.
+        </TextBlock>
+        <TextBlock Grid.Row="7" TextWrapping="Wrap">
+            미리보기 생성이 완료되면 위 문구가 사라집니다.
+        </TextBlock>
+    </Grid>
+</Page>

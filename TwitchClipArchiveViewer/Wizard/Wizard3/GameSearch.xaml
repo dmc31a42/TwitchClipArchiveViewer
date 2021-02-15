@@ -1,0 +1,41 @@
+﻿<Page x:Class="TwitchClipArchiveViewer.Wizard.Wizard3.GameSearch"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TwitchClipArchiveViewer.Wizard.Wizard3"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="GameSearch">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" TextWrapping="Wrap" FontSize="15">
+            게임으로 검색
+        </TextBlock>
+        <WrapPanel Orientation="Horizontal" Grid.Row="1">
+            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" >
+                게임 필터 오른쪽 편의
+            </TextBlock>
+            <Image Source="GameSearch-1.png" Height="20" Margin="5,0,5,0"/>
+            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" >
+                버튼을 누르고
+            </TextBlock>
+            <Image Source="GameSearch-2.png" Height="20" Margin="5,0,5,0"/>
+            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" >
+                버튼을 누르면 게임 목록이 표시됩니다.
+            </TextBlock>
+            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" >
+                아래에 표시되는 게임 목록을 선택하고 검색버튼을 누르면 해당 게임만 검색 결과에 보이게됩니다.
+            </TextBlock>
+            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" >
+                아무것도 선택하지 않은 것과 전부 선택한 것은 같습니다.
+            </TextBlock>
+        </WrapPanel>
+        <Image Grid.Row="2" Source="GameSearch-3.png"/>
+    </Grid>
+</Page>

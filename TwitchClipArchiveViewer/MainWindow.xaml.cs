@@ -22,6 +22,7 @@ using System.Diagnostics;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Threading;
+using TwitchClipArchiveViewer.Wizard;
 
 namespace TwitchClipArchiveViewer
 {
@@ -62,11 +63,12 @@ namespace TwitchClipArchiveViewer
                 compareFunc = (twitchClip1, twitchClip2) => String.Compare(twitchClip1.creator_name, twitchClip2.creator_name)
             });
             orderList.ItemsSource = orderSelectors;
+            this.DataContext = this;
         }
 
         public TwitchClip[] twitchClips;
         public TwitchClip[]  twitchClipsFiltered;
-        public ObservableCollection<TwitchClip> twitchClipsFilteredAndOrdered;
+        public ObservableCollection<TwitchClip> _twitchClipsFilteredAndOrdered = new ObservableCollection<TwitchClip>();
         public ObservableCollection<TwitchGameStrict> twitchGames;
         public ObservableCollection<OrderSelector> orderSelectors = new ObservableCollection<OrderSelector>();
 
@@ -91,8 +93,6 @@ namespace TwitchClipArchiveViewer
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
                 tbFolderPath.Text = dialog.FileName;
-
-
             }
         }
 
@@ -152,6 +152,15 @@ namespace TwitchClipArchiveViewer
                 loadingGrid.Visibility = Visibility.Hidden;
                 pressSearch.Visibility = Visibility.Visible;
                 orderList.IsEnabled = true;
+
+                if(Properties.Settings1.Default.SkipTutorial == false &&
+                    Properties.Settings1.Default.Done2 == false)
+                {
+                    WizardMain wizardMain = new WizardMain(1, 0, false);
+                    wizardMain.Show();
+                    Properties.Settings1.Default.Done2 = true;
+                    Properties.Settings1.Default.Save();
+                }
             }
             
         }
@@ -254,10 +263,10 @@ namespace TwitchClipArchiveViewer
             {
                 ParallelOptions parallelOptions = new ParallelOptions()
                 {
-                    MaxDegreeOfParallelism = 4
+                    MaxDegreeOfParallelism = 10
                 };
-                //Parallel.ForEach(listTwitchClipToThumbnail, parallelOptions, (twitchClip, action, i) =>
-                foreach (var twitchClip in listTwitchClipToThumbnail)
+                Parallel.ForEach(listTwitchClipToThumbnail, parallelOptions, (twitchClip, action, i) =>
+                //foreach (var twitchClip in listTwitchClipToThumbnail)
                 {
                     ProcessStartInfo startInfo = new ProcessStartInfo(@"ffmpeg\ffmpeg.exe");
                     startInfo.Arguments = "-itsoffset -4  -i \"" + twitchClip.download_url + "\" -vcodec mjpeg -vframes 1 -an -f rawvideo -s 320x180 \"" + twitchClip.download_url.Replace(".mp4", ".jpg") + "\"";
@@ -265,22 +274,55 @@ namespace TwitchClipArchiveViewer
                     startInfo.UseShellExecute = false;
                     startInfo.RedirectStandardOutput = true;
                     startInfo.RedirectStandardError = true;
-                    Process proc = Process.Start(startInfo);
+                    startInfo.RedirectStandardInput = true;
+                    bool Success = true;
                     do
                     {
-                        Log.StreamWriter.WriteLine(proc.StandardOutput.ReadToEnd());
-                        Log.StreamWriter.WriteLine(proc.StandardError.ReadToEnd());
-                    } while (!proc.HasExited);
+                        Success = true;
+                        Process proc = Process.Start(startInfo);
+                        DateTime dateTime = DateTime.Now;
+                        System.Threading.Timer timer = new Timer((state) =>
+                        {
+                            proc.Kill();
+                            Success = false;
+                        },null, 10 * 1000, System.Threading.Timeout.Infinite);
+                        do
+                        {
+                            string output = proc.StandardOutput.ReadToEnd();
+                            string error = proc.StandardError.ReadToEnd();
+                            //Log.StreamWriter.WriteLine(output);
+                            //Log.StreamWriter.WriteLine(error);
+                            if(output.IndexOf("already exists. Overwrite? [y/N]") != -1)
+                            {
+                                proc.StandardInput.WriteLine("y");
+                            }
+                        } while (!proc.HasExited && (DateTime.Now-dateTime).TotalSeconds<10);
+                        if(Success != false && proc.HasExited)
+                        {
+                        } else
+                        {
+                            Success = false;
+                            proc.Kill();
+                            //Log.StreamWriter.WriteLine("****************ERROR****************");
+                            //Log.StreamWriter.WriteLine("Timeout");
+                            //Log.StreamWriter.WriteLine(twitchClip.download_url);
+                            if (File.Exists(twitchClip.download_url.Replace(".mp4", ".jpg")))
+                            {
+                                //Log.StreamWriter.WriteLine("Delete: " + twitchClip.download_url.Replace(".mp4", ".jpg"));
+                                File.Delete(twitchClip.download_url.Replace(".mp4", ".jpg"));
+                            }
+                        }
+                    } while (Success == false);
                     Interlocked.Increment(ref this.ThumbnailCount);
                     twitchClip.thumbnail_url = twitchClip.download_url.Replace(".mp4", ".jpg");
                     backgroundWorker.ReportProgress(this.ThumbnailCount * 100 / this.ThumbnailLength);
                     if (e.Cancel)
                     {
-                        //action.Break();
-                        break;
+                        action.Break();
+                        //break;
                     }
-                }
-                //});
+                //}
+                });
             }
         }
 
@@ -298,6 +340,7 @@ namespace TwitchClipArchiveViewer
         {
             if(twitchClips != null)
             {
+                filterDP.IsEnabled = false;
                 string title = filtertbTitle.Text;
                 DateTime dateFrom = filterdpDateFrom.SelectedDate ?? this.firstDate;
                 DateTime dateTo = filterdpDateTo.SelectedDate ?? this.lastDate;
@@ -323,58 +366,91 @@ namespace TwitchClipArchiveViewer
                     filtertbViewCountFrom.Text = viewCountFrom.ToString();
                     filtertbViewCountTo.Text = viewCountTo.ToString();
                 }
-                Dictionary<string, TwitchGameStrict> selectedGames = new Dictionary<string, TwitchGameStrict>();
-                foreach (TwitchGameStrict twitchGame in twitchGameSelected)
-                {
-                    selectedGames.Add(twitchGame.id, twitchGame);
-                }
-                twitchClipsFiltered = twitchClips.Where((twitchClip) =>
-                {
-                    if (String.IsNullOrEmpty(title) == false)
-                    {
-                        if (twitchClip.title.IndexOf(title) == -1)
-                        {
-                            return false;
-                        }
-                    }
-                    if (String.IsNullOrEmpty(creator) == false)
-                    {
-                        if (twitchClip.creator_name.IndexOf(creator) == -1)
-                        {
-                            return false;
-                        }
-                    }
-                    if (viewCountFrom <= twitchClip.view_count && twitchClip.view_count <= viewCountTo)
-                    {
-
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                    if (dateFrom <= twitchClip.created_at.ToLocalTime() && twitchClip.created_at.ToLocalTime() <= dateTo)
-                    {
-
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                    if (selectedGames.Count != 0)
-                    {
-                        if (selectedGames.ContainsKey(twitchClip.game_id) == false)
-                        {
-                            return false;
-                        }
-                    }
-                    return true;
-                }).ToArray();
-                statusBarSearchResult.Text = "검색된 클립: " + twitchClipsFiltered.Count().ToString() + "개";
-                Sorting();
                 pressSearch.Visibility = Visibility.Hidden;
+                duringSearch.Visibility = Visibility.Visible;
+                BackgroundWorker workerSearch = new BackgroundWorker();
+                workerSearch.DoWork += (sender, e) =>
+                {
+                    Dictionary<string, TwitchGameStrict> selectedGames = new Dictionary<string, TwitchGameStrict>();
+                    foreach (TwitchGameStrict twitchGame in twitchGameSelected)
+                    {
+                        selectedGames.Add(twitchGame.id, twitchGame);
+                    }
+                    twitchClipsFiltered = twitchClips.Where((twitchClip) =>
+                    {
+                        if (String.IsNullOrEmpty(title) == false)
+                        {
+                            if (twitchClip.title.Contains(title, StringComparison.CurrentCultureIgnoreCase) == false)
+                            {
+                                return false;
+                            }
+                        }
+                        if (String.IsNullOrEmpty(creator) == false)
+                        {
+                            if (twitchClip.creator_name.Contains(creator, StringComparison.CurrentCultureIgnoreCase) == false)
+                            {
+                                return false;
+                            }
+                        }
+                        if (viewCountFrom <= twitchClip.view_count && twitchClip.view_count <= viewCountTo)
+                        {
+
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                        if (dateFrom <= twitchClip.created_at.ToLocalTime() && twitchClip.created_at.ToLocalTime() <= dateTo)
+                        {
+
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                        if (selectedGames.Count != 0)
+                        {
+                            if (selectedGames.ContainsKey(twitchClip.game_id) == false)
+                            {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }).ToArray();
+                    Sorting();
+                };
+                workerSearch.RunWorkerCompleted += (sender, e) =>
+                {
+                    if (this.twitchClipsFiltered != null)
+                    {
+                        statusBarSearchResult.Text = "검색된 클립: " + twitchClipsFiltered.Count().ToString() + "개";
+                        duringSearch.Visibility = Visibility.Hidden;
+                        if (Properties.Settings1.Default.SkipTutorial == false)
+                        {
+                            if (Properties.Settings1.Default.Done3 == false)
+                            {
+                                WizardMain wizardMain = new WizardMain(2, 0, false);
+                                wizardMain.Show();
+                                Properties.Settings1.Default.Done3 = true;
+                                Properties.Settings1.Default.Save();
+                            }
+                            else if (Properties.Settings1.Default.Done4 == false)
+                            {
+                                WizardMain wizardMain = new WizardMain(3, 0, false);
+                                wizardMain.Show();
+                                Properties.Settings1.Default.Done4 = true;
+                                Properties.Settings1.Default.Save();
+                            }
+                        }
+                        lv1.ItemsSource = new ObservableCollection<TwitchClip>(this.twitchClipsFiltered);
+                        filterDP.IsEnabled = true;
+                    }
+                };
+                workerSearch.RunWorkerAsync();
+                
             } else
             {
-
+               
             }
         }
 
@@ -399,8 +475,6 @@ namespace TwitchClipArchiveViewer
                     }
                     return 0;
                 });
-                this.twitchClipsFilteredAndOrdered = new ObservableCollection<TwitchClip>(this.twitchClipsFiltered);
-                lv1.ItemsSource = this.twitchClipsFilteredAndOrdered;
             }
             
         }
@@ -465,6 +539,20 @@ namespace TwitchClipArchiveViewer
             }
         }
 
+        void SortingAsync()
+        {
+            BackgroundWorker sortWorker = new BackgroundWorker();
+            sortWorker.DoWork += (sender, e) =>
+            {
+                Sorting();
+            };
+            sortWorker.RunWorkerCompleted += (sender, e) =>
+            {
+                lv1.ItemsSource = new ObservableCollection<TwitchClip>(this.twitchClipsFiltered);
+            };
+            sortWorker.RunWorkerAsync();
+        }
+
         private void orderList_Drop(object sender, DragEventArgs e)
         {
             OrderSelector droppedData = e.Data.GetData(typeof(OrderSelector)) as OrderSelector;
@@ -477,7 +565,7 @@ namespace TwitchClipArchiveViewer
             {
                 orderSelectors.Insert(targetIdx + 1, droppedData);
                 orderSelectors.RemoveAt(removedIdx);
-                Sorting();
+                SortingAsync();
             } else
             {
                 int remIdx = removedIdx + 1;
@@ -485,7 +573,7 @@ namespace TwitchClipArchiveViewer
                 {
                     orderSelectors.Insert(targetIdx, droppedData);
                     orderSelectors.RemoveAt(remIdx);
-                    Sorting();
+                    SortingAsync();
                 }
             }
         }
@@ -497,7 +585,7 @@ namespace TwitchClipArchiveViewer
                 if(button.DataContext is OrderSelector orderSelector)
                 {
                     orderSelector.accentDescent = !orderSelector.accentDescent;
-                    Sorting();
+                    SortingAsync();
                 }
             }
         }
@@ -552,6 +640,24 @@ namespace TwitchClipArchiveViewer
                 Process proc = Process.Start(startInfo);
             }
             
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if(Properties.Settings1.Default.SkipTutorial == false &&
+                Properties.Settings1.Default.Done1 == false)
+            {
+                WizardMain wizardMain = new WizardMain(0, 0, false);
+                wizardMain.Show();
+                Properties.Settings1.Default.Done1 = true;
+                Properties.Settings1.Default.Save();
+            }
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            WizardMain wizardMain = new WizardMain(0, 0, true);
+            wizardMain.Show();
         }
     }
 }
