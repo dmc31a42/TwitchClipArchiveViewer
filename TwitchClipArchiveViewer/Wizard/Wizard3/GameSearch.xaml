@@ -36,6 +36,6 @@
                 아무것도 선택하지 않은 것과 전부 선택한 것은 같습니다.
             </TextBlock>
         </WrapPanel>
-        <Image Grid.Row="2" Source="GameSearch-3.png"/>
+        <Image Grid.Row="2" Source="GameSearch-3.png" MaxHeight="700"/>
     </Grid>
 </Page>

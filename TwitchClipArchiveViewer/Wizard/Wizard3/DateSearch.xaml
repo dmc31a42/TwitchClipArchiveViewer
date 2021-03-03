@@ -20,6 +20,6 @@
         <TextBlock Grid.Row="1" TextWrapping="Wrap" >
             날짜 필터는 이 날짜 범위 안에 만들어진(실제 방송일자와 무관) 클립을 찾아줍니다. 날짜 선택은 달력 모양 아이콘을 클릭하면 달력이 표시됩니다. 현재 보유하고 있는 클립 외의 날짜는 선택할 수 없게 되어있습니다. 날짜는 왼쪽이 먼(빠른) 날짜 오른쪽이 가까운(늦은) 날짜이나 순서가 바뀌어도 알아서 검색해줍니다.
         </TextBlock>
-        <Image Grid.Row="2" Source="DateSearch.png"/>
+        <Image Grid.Row="2" Source="DateSearch.png" MaxHeight="700"/>
     </Grid>
 </Page>

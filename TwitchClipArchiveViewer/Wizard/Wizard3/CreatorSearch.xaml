@@ -24,6 +24,6 @@
         <TextBlock Grid.Row="2" TextWrapping="Wrap">
             참고: 대소문자는 구분하지 않습니다.
         </TextBlock>
-        <Image Grid.Row="3" Source="CreatorSearch.png"/>
+        <Image Grid.Row="3" Source="CreatorSearch.png" MaxHeight="700"/>
     </Grid>
 </Page>

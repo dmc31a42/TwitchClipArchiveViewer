@@ -35,6 +35,12 @@
     <None Remove="Wizard\Wizard3\GameSearch-3.png" />
     <None Remove="Wizard\Wizard3\TitleSearch.png" />
     <None Remove="Wizard\Wizard3\ViewCountSearch.png" />
+    <None Remove="Wizard\Wizard4\ClipItem-1.png" />
+    <None Remove="Wizard\Wizard4\ClipItem-2.png" />
+    <None Remove="Wizard\Wizard4\ClipItem-3.png" />
+    <None Remove="Wizard\Wizard4\ClipItem-4.png" />
+    <None Remove="Wizard\Wizard4\ClipItem-5.png" />
+    <None Remove="Wizard\Wizard4\ClipItem-6.png" />
     <None Remove="Wizard\Wizard4\OrderSelector-1.png" />
     <None Remove="Wizard\Wizard4\OrderSelector-2.png" />
     <None Remove="Wizard\Wizard4\OrderSelector-3.png" />
@@ -67,6 +73,12 @@
     <Resource Include="Wizard\Wizard3\GameSearch-3.png" />
     <Resource Include="Wizard\Wizard3\TitleSearch.png" />
     <Resource Include="Wizard\Wizard3\ViewCountSearch.png" />
+    <Resource Include="Wizard\Wizard4\ClipItem-1.png" />
+    <Resource Include="Wizard\Wizard4\ClipItem-2.png" />
+    <Resource Include="Wizard\Wizard4\ClipItem-3.png" />
+    <Resource Include="Wizard\Wizard4\ClipItem-4.png" />
+    <Resource Include="Wizard\Wizard4\ClipItem-5.png" />
+    <Resource Include="Wizard\Wizard4\ClipItem-6.png" />
     <Resource Include="Wizard\Wizard4\OrderSelector-1.png" />
     <Resource Include="Wizard\Wizard4\OrderSelector-2.png" />
     <Resource Include="Wizard\Wizard4\OrderSelector-3.png" />

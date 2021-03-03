@@ -35,6 +35,6 @@
         <TextBlock Grid.Row="2" TextWrapping="Wrap">
             그러면 아래와 같이 전체 클립 목록이 표시됩니다.
         </TextBlock>
-        <Image Grid.Row="3" Source="AS-AfterPressSearch.png" Margin="5"/>
+        <Image Grid.Row="3" Source="AS-AfterPressSearch.png" Margin="5" MaxHeight="700"/>
     </Grid>
 </Page>

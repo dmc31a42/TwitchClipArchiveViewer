@@ -52,6 +52,7 @@ namespace TwitchClipArchiveViewer.Wizard
 
             List<Page> wizard4 = new List<Page>();
             wizard4.Add(new Wizard4.OrderSelector());
+            wizard4.Add(new Wizard4.ClipItem());
             wizard4.Add(new Wizard4.FinishTutorial());
             pages.Add(wizard4);
 

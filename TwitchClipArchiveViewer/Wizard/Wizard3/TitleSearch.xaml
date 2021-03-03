@@ -23,7 +23,7 @@
         <TextBlock Grid.Row="1" TextWrapping="Wrap">
             폴더에 저장된 모든 클립들을 살펴보았군요. 이제 필요로 하는 클립만 찾아보도록 합시다.
         </TextBlock>
-        <Image Grid.Row="2" Source="TitleSearch.png"/>
+        <Image Grid.Row="2" Source="TitleSearch.png" MaxHeight="700"/>
         <TextBlock Grid.Row="3" TextWrapping="Wrap">
             '제목' 필터에 검색하고자 하는 문구를 넣고 검색을 누르면 그 문구를 포함하는 클립들만 보여줍니다. 비워져있으면 모든 클립을 보여줍니다.
         </TextBlock>

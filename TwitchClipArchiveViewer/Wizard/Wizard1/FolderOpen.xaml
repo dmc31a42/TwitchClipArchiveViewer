@@ -14,6 +14,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" FontSize="15" Margin="5" TextWrapping="Wrap">
@@ -45,9 +46,9 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" Source="FolderOpen-FolderExplorer.png"/>
+            <Image Grid.Column="0" Source="FolderOpen-FolderExplorer.png" MaxHeight="700"/>
             <TextBlock Grid.Column="1" Text="->"  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
-            <Image Grid.Column="2" Source="FolderOpen-OpenDialog.png"/>
+            <Image Grid.Column="2" Source="FolderOpen-OpenDialog.png" MaxHeight="700"/>
         </Grid>
     </Grid>
 </Page>

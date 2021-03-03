@@ -269,7 +269,7 @@ namespace TwitchClipArchiveViewer
                 //foreach (var twitchClip in listTwitchClipToThumbnail)
                 {
                     ProcessStartInfo startInfo = new ProcessStartInfo(@"ffmpeg\ffmpeg.exe");
-                    startInfo.Arguments = "-itsoffset -4  -i \"" + twitchClip.download_url + "\" -vcodec mjpeg -vframes 1 -an -f rawvideo -s 320x180 \"" + twitchClip.download_url.Replace(".mp4", ".jpg") + "\"";
+                    startInfo.Arguments = "-y -itsoffset -4  -i \"" + twitchClip.download_url + "\" -vcodec mjpeg -vframes 1 -an -f rawvideo -s 320x180 \"" + twitchClip.download_url.Replace(".mp4", ".jpg") + "\"";
                     startInfo.CreateNoWindow = true;
                     startInfo.UseShellExecute = false;
                     startInfo.RedirectStandardOutput = true;
@@ -292,10 +292,10 @@ namespace TwitchClipArchiveViewer
                             string error = proc.StandardError.ReadToEnd();
                             //Log.StreamWriter.WriteLine(output);
                             //Log.StreamWriter.WriteLine(error);
-                            if(output.IndexOf("already exists. Overwrite? [y/N]") != -1)
-                            {
-                                proc.StandardInput.WriteLine("y");
-                            }
+                            //if(error.IndexOf("already exists. Overwrite? [y/N]") != -1)
+                            //{
+                            //    proc.StandardInput.WriteLine("y");
+                            //}
                         } while (!proc.HasExited && (DateTime.Now-dateTime).TotalSeconds<10);
                         if(Success != false && proc.HasExited)
                         {
@@ -312,6 +312,7 @@ namespace TwitchClipArchiveViewer
                                 File.Delete(twitchClip.download_url.Replace(".mp4", ".jpg"));
                             }
                         }
+                        timer.Dispose();
                     } while (Success == false);
                     Interlocked.Increment(ref this.ThumbnailCount);
                     twitchClip.thumbnail_url = twitchClip.download_url.Replace(".mp4", ".jpg");

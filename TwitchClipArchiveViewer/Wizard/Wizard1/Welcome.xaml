@@ -17,7 +17,7 @@
         <TextBlock Grid.Row="0" TextWrapping="Wrap" Margin="5">
                 안녕하세요, 이 프로그램은 여러분들이 가지고 있는 기존의 트위치 클립 파일들을 아래와 같이 보기 편하게 보여드리는 프로그램입니다.
         </TextBlock>
-        <Image Grid.Row="1" Source="Welcome.png" Margin="5"/>
+        <Image Grid.Row="1" Source="Welcome.png" Margin="5" MaxHeight="700"/>
         <TextBlock Grid.Row="2" TextWrapping="Wrap" Margin="5">
                 이 화면을 보실 수 있게 한 단계씩 알려드리겠습니다.
         </TextBlock>

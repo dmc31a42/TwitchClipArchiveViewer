@@ -1,0 +1,61 @@
+﻿<Page x:Class="TwitchClipArchiveViewer.Wizard.Wizard4.ClipItem"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TwitchClipArchiveViewer.Wizard.Wizard4"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ClipItem">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" TextWrapping="Wrap" FontSize="15">
+        검색 결과
+        </TextBlock>
+        <TextBlock Grid.Row="1" TextWrapping="Wrap" >
+        이번에는 검색 결과창에서 얻을 수 있는 정보들입니다.
+        </TextBlock>
+        <TextBlock Grid.Row="2" TextWrapping="Wrap" >
+        미리보기 이미지를 클릭하면 클립을 재생하는 창이 뜹니다.
+        </TextBlock>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Source="ClipItem-1.png" MaxHeight="150"/>
+            <Image Grid.Column="1" Source="ClipItem-2.png" MaxHeight="150"/>
+        </Grid>
+        <TextBlock Grid.Row="4" TextWrapping="Wrap" >
+        폴더 모양 버튼을 누르면 클립 동영상 파일을 탐색기에서 보여줍니다.
+        </TextBlock>
+        <Grid Grid.Row="5" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Source="ClipItem-3.png" MaxHeight="100"/>
+            <Image Grid.Column="1" Source="ClipItem-4.png" MaxHeight="150"/>
+        </Grid>
+        <TextBlock Grid.Row="6" TextWrapping="Wrap" >
+        날짜에 마우스 커서를 올려두면 정확한 클립 생성 시간이 표시됩니다.
+        </TextBlock>
+        <Image Grid.Row="7" Source="ClipItem-5.png" MaxHeight="100"/>
+        <TextBlock Grid.Row="8" TextWrapping="Wrap" >
+        마지막으로 검색기 창의 크기는 마음대로 조절이 가능합니다.
+        </TextBlock>
+        <Image Grid.Row="9" Source="ClipItem-6.png" MaxHeight="150"/>
+    </Grid>
+</Page>
